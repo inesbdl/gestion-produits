@@ -6,11 +6,8 @@ on:
       - main
 
 jobs:
-
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    outputs:
-      image-name: gestion-produits-php:1.0
 
     steps:
     - name: Récupérer le dépot
@@ -24,36 +21,30 @@ jobs:
     - name: config buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Construire l'image Docker
+    - name: image doccker
       run: |
         docker build -t gestion-produits-php:1.0 ./php
 
-      # Commenté si push sur Docker Hub
-      # - name: Connexion Docker Hub
+      #- name: Connexion à Docker Hub
       #   uses: docker/login-action@v2
       #   with:
       #     username: ${{ secrets.DOCKER_USERNAME }}
       #     password: ${{ secrets.DOCKER_PASSWORD }}
       #
-      # - name: Taguer l'image
-      #   run: docker tag gestion-produits-php:1.0 monuser/gestion-produits-php:1.0
+      # - name: Taguer l'image pour Docker Hub
+      #   run: |
+      #     docker tag gestion-produits-php:1.0 monuser/gestion-produits-php:1.0
       #
-      # - name: Pousser sur Docker Hub
-      #   run: docker push monuser/gestion-produits-php:1.0
+      # - name: Pousser l'image sur Docker Hub
+      #   run: |
+      #     docker push monuser/gestion-produits-php:1.0
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build 
-    steps:
-    - name: Récupérer le dépot
-      uses: actions/checkout@v3
-
-    - name: Installer kubectl
+    - name: Config kubectl
       run: |
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
 
-    - name: Déployer sur Minikube
+    - name: Deployer sur minikube
       run: |
         kubectl apply -f mkb
