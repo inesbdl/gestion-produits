@@ -55,4 +55,4 @@ jobs:
 
     - name: Déployer sur Minikube
       run: |
-        kubectl apply -f mkb
+        kubectl apply -f mkb --validate=false
