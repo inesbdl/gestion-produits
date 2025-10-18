@@ -42,7 +42,7 @@ jobs:
     - name: Config kubectl
       uses: azure/setup-kubectl@v3
       with:
-        version: '1.28.0'
+        version: '1.27.4'
 
     - name: Deployer sur minikube
       run: |
