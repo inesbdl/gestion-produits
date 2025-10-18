@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-app
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      containers:
+      - name: php-app
+        image: tartines/gestion-produits-php:1.0
+        ports:
+        - containerPort: 80
+        envFrom:
+          - configMapRef:
+              name: php-configmap
