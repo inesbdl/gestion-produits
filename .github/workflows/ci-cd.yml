@@ -23,7 +23,7 @@ jobs:
 
     - name: image doccker
       run: |
-        docker build -t gestion-produits-php:1.0 ./php
+        docker build -t gestion-produits-php:2.0 ./php
 
       #- name: Connexion à Docker Hub
       #   uses: docker/login-action@v2
@@ -33,11 +33,11 @@ jobs:
       #
       # - name: Taguer l'image pour Docker Hub
       #   run: |
-      #     docker tag gestion-produits-php:1.0 monuser/gestion-produits-php:1.0
+      #     docker tag gestion-produits-php:1.0 tartines/gestion-produits-php:1.0
       #
       # - name: Pousser l'image sur Docker Hub
       #   run: |
-      #     docker push monuser/gestion-produits-php:1.0
+      #     docker push tartines/gestion-produits-php:1.0
 
     - name: Config kubectl
       run: |
